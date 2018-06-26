@@ -1,5 +1,6 @@
 package ilovecats.com.simpletodo;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,10 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 public class ToDoActivity extends AppCompatActivity {
+
+    public final static int EDIT_REQUEST_CODE = 20;
+    public final static String ITEM_TEXT = "itemText";
+    public final static String ITEM_POSITION = "itemPosition";
 
     ArrayList<String> items;
     ArrayAdapter<String> itemsAdapter;
@@ -80,6 +85,27 @@ public class ToDoActivity extends AppCompatActivity {
         toast.show();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && requestCode == EDIT_REQUEST_CODE) {
+            String updatedItem = data.getExtras().getString(ITEM_TEXT);
+            int position = data.getExtras().getInt(ITEM_POSITION);
+            items.set(position,updatedItem);
+            itemsAdapter.notifyDataSetChanged();
+            writeItems();
+
+            Toast toast = Toast.makeText(getApplicationContext(), "Item updated successfully", Toast.LENGTH_SHORT);
+            View view = toast.getView();
+            view.setBackgroundColor(Color.BLACK);
+            TextView text = (TextView) view.findViewById(android.R.id.message);
+            text.setTextColor(Color.WHITE);
+            toast.show();
+        }
+
+    }
+
     private void setupListViewListener() {
         Log.i("MainActivity", "Setting up listener on list view");
         lvItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -91,6 +117,22 @@ public class ToDoActivity extends AppCompatActivity {
                 itemsAdapter.notifyDataSetChanged();
                 writeItems();
                 return true;
+            }
+        });
+
+        lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                //create new activity
+                Intent i = new Intent(getApplicationContext(), EditItemActivity.class);
+
+                //pass data being edited
+                i.putExtra(ITEM_TEXT, items.get(position));
+                i.putExtra(ITEM_POSITION, position);
+
+                //display activity
+                startActivityForResult(i, EDIT_REQUEST_CODE);
+
             }
         });
     }
