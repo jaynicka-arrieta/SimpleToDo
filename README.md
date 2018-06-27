@@ -16,7 +16,7 @@ The following **required** functionality is completed:
 
 The following **optional** features are implemented:
 
-* [ ] User can **tap a todo item in the list and bring up an edit screen for the todo item** and then have any changes to the text reflected in the todo list
+* [X] User can **tap a todo item in the list and bring up an edit screen for the todo item** and then have any changes to the text reflected in the todo list
 
 The following **additional** features are implemented:
 
@@ -27,15 +27,13 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://imgur.com/gallery/veua10R' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-I had trouble getting the toast message to show clearly. By default, the background is a light grey, so I had to create a custom
-toast message to change the background color. Another problem I ran into was the keyboard popping up upon opening the app.
-That was fixed by adding to the main xml file to stop the keyboard from popping up.
+I had trouble getting the toast message to show clearly. By default, the background is a light grey, so I had to create a custom toast message to change the background color. Another problem I ran into was the keyboard popping up upon opening the app. That was fixed by adding to the AndroidManifest.xml file to stop the keyboard from popping up.
 
 ## License
 
